@@ -32,7 +32,8 @@ namespace Automation.PageObjects
             List<IWebElement> rows = ResultsTable.FindElements(By.TagName("tr")).ToList();
             bool bComputerFound = false;
 
-            string strDateTime = DateTime.Parse(orderData.StudyDateTime).ToString("MM/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+            string strDateTime = DateTime.ParseExact(orderData.StudyDateTime, "dd/MM/yyyy hh:mm tt", CultureInfo.InvariantCulture)
+                .ToString("dd/MM/yyyy HH:mm:ss");
 
             foreach (IWebElement row in rows)
             {
@@ -48,14 +49,50 @@ namespace Automation.PageObjects
                     Assert.AreEqual(GetCode(orderData.Modality), row.FindElement(By.XPath("./td[6]")).Text);
                     Assert.AreEqual(strDateTime, row.FindElement(By.XPath("./td[7]")).Text);
                     Assert.AreEqual("SC", row.FindElement(By.XPath("./td[8]")).Text);
-
-                    // Delete the record
-                    row.FindElement(By.XPath(".//i")).Click();
-                    driver.SwitchTo().Alert().Accept();
                     break;
                 }
             }
             Assert.IsTrue(bComputerFound);
+        }
+
+        public void VerifyOrdersListing(string DateTime1, string DateTime2)
+        {
+            Utilities.ScreenCapture(driver, "OrderOfResults");
+
+            List<IWebElement> rows = ResultsTable.FindElements(By.TagName("tr")).ToList();
+            int DateTime1Index = 0;
+            int DateTime2Index = 0;
+            //string strDateTime1 = DateTime.Parse(DateTime1).ToString("MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            //string strDateTime2 = DateTime.Parse(DateTime2).ToString("MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            DateTime dtDateTime1 = DateTime.ParseExact(DateTime1, "dd/MM/yyyy hh:mm tt", CultureInfo.InvariantCulture);
+            string strDateTime1 = dtDateTime1.ToString("dd/MM/yyyy HH:mm:ss");
+            DateTime dtDateTime2 = DateTime.ParseExact(DateTime2, "dd/MM/yyyy hh:mm tt", CultureInfo.InvariantCulture);
+            string strDateTime2 = dtDateTime2.ToString("dd/MM/yyyy HH:mm:ss");
+
+            foreach (IWebElement row in rows)
+            {
+                DateTime1Index++;
+                if (row.Text.Contains(strDateTime1))
+                {
+                    break;
+                }
+            }
+            foreach (IWebElement row in rows)
+            {
+                DateTime2Index++;
+                if (row.Text.Contains(strDateTime2))
+                {
+                    break;
+                }
+            }
+            if (dtDateTime1 <= dtDateTime2)
+            {
+                Assert.That(DateTime1Index, Is.LessThan(DateTime2Index));
+            }
+            else
+            {
+                Assert.That(DateTime2Index, Is.LessThan(DateTime1Index));
+            }
         }
 
         public void DeleteNewOrder(string strAccessionNumber)

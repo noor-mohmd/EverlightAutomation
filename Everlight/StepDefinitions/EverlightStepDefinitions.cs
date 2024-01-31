@@ -26,7 +26,6 @@ namespace Automation.StepDefinitions
 
         public OrderData? OrderDataTable;
         public OrderAPIData? OrderAPITable;
-        public string strAccessionNumber;
         AddOrderAPI addOrder = new AddOrderAPI();
 
         public static void CustomSpecflowScenarioStart(string strScenarioTitle)
@@ -65,16 +64,22 @@ namespace Automation.StepDefinitions
         [Then("the order should be added with accession number '(.*)'")]
         public void ThenTheOrderShouldBeAdded(string strAccessionNumber)
         {
-            this.strAccessionNumber = strAccessionNumber;
             SearchOrder searchOrder = new SearchOrder(driver);
             searchOrder.SearchForNewOrder(strAccessionNumber, OrderDataTable);
         }
 
-        [Then(@"delete the order")]
-        public void ThenDeleteTheOrder()
+        [Then(@"delete the order with accession number '(.*)'")]
+        public void ThenDeleteTheOrder(string strAccessionNumber)
         {
             SearchOrder searchOrder = new SearchOrder(driver);
             searchOrder.DeleteNewOrder(strAccessionNumber);
+        }
+
+        [Then(@"the order should be listed in ascending order of study datetime '(.*)', '(.*)'")]
+        public void ThenTheOrderShouldBeListedInAscendingOrderOfStudyDatetime(string DateTime1, string DateTime2)
+        {
+            SearchOrder searchOrder = new SearchOrder(driver);
+            searchOrder.VerifyOrdersListing(DateTime1, DateTime2);
         }
 
         [When(@"the user tries to add a new order with following data")]

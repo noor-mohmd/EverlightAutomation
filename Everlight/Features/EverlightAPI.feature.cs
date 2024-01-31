@@ -109,7 +109,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "patientMRN",
                             "patientFirstName",
                             "patientLastName",
@@ -118,7 +118,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "SiteId",
                             "Modality",
                             "StudyDateTime"});
-                table3.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             string.Format("{0}", patientMRN),
                             string.Format("{0}", patientFirstName),
                             string.Format("{0}", patientLastName),
@@ -128,7 +128,7 @@ this.ScenarioInitialize(scenarioInfo);
                             string.Format("{0}", modality),
                             string.Format("{0}", studyDateTime)});
 #line 4
- testRunner.Given("the user adds a new order using API with following data", ((string)(null)), table3, "Given ");
+ testRunner.Given("the user adds a new order using API with following data", ((string)(null)), table7, "Given ");
 #line hidden
 #line 7
  testRunner.Then("the order should be added with status code \'201\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -182,7 +182,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "patientMRN",
                             "patientFirstName",
                             "patientLastName",
@@ -191,7 +191,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "SiteId",
                             "Modality",
                             "StudyDateTime"});
-                table4.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             string.Format("{0}", patientMRN),
                             string.Format("{0}", patientFirstName),
                             string.Format("{0}", patientLastName),
@@ -201,7 +201,7 @@ this.ScenarioInitialize(scenarioInfo);
                             string.Format("{0}", modality),
                             string.Format("{0}", studyDateTime)});
 #line 16
- testRunner.Given("the user adds a new order using API with following data", ((string)(null)), table4, "Given ");
+ testRunner.Given("the user adds a new order using API with following data", ((string)(null)), table8, "Given ");
 #line hidden
 #line 19
  testRunner.Then(string.Format("the order should not be added with API error \'{0}\'", error), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

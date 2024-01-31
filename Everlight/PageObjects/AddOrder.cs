@@ -133,8 +133,8 @@ namespace Automation.PageObjects
 
         public void VerifyErrorDisplayed(string errorMsg)
         {
-            string strIdentifier = "//div[contains(@class,'row')]//div[text()=' "
-                + errorMsg + " ']";
+            string strIdentifier = "//div[contains(@class,'row')]//div[contains(text(),'"
+                + errorMsg + "')]";
 
             bool errorMsgExists = Utilities.CheckWebElementExistsAndVisible(driver, strIdentifier);
             Assert.True(errorMsgExists);
